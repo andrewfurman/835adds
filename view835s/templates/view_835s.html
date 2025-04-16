@@ -5,26 +5,35 @@
     <title>835 EDI Viewer</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <h1>835 EDI File Viewer</h1>
-        <div class="upload-section">
-            <form method="POST" enctype="multipart/form-data">
-                <input type="file" name="edi_file" accept=".edi,.txt">
-                <button type="submit">Upload and Parse</button>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">835 EDI File Viewer</h1>
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <form method="POST" enctype="multipart/form-data" class="space-y-4">
+                <div class="flex items-center space-x-4">
+                    <input type="file" name="edi_file" accept=".edi,.txt" 
+                           class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    <button type="submit" 
+                            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                        Upload and Parse
+                    </button>
+                </div>
             </form>
         </div>
         <div class="results-section">
             {% if transactions %}
-                <h2>Parsed Transactions</h2>
-                {% for transaction in transactions %}
-                    <div class="transaction">
-                        <h3>Transaction {{ loop.index }}</h3>
-                        <p>Payment Amount: {{ transaction.payment_amount }}</p>
-                        <p>Date: {{ transaction.date }}</p>
-                    </div>
-                {% endfor %}
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Parsed Transactions</h2>
+                <div class="grid gap-4">
+                    {% for transaction in transactions %}
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Transaction {{ loop.index }}</h3>
+                            <p class="text-gray-600">Payment Amount: <span class="font-medium">${{ transaction.payment_amount }}</span></p>
+                            <p class="text-gray-600">Date: <span class="font-medium">{{ transaction.date }}</span></p>
+                        </div>
+                    {% endfor %}
+                </div>
             {% endif %}
         </div>
     </div>
