@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>835 EDI Viewer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="container">
+        <h1>835 EDI File Viewer</h1>
+        <div class="upload-section">
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="edi_file" accept=".edi,.txt">
+                <button type="submit">Upload and Parse</button>
+            </form>
+        </div>
+        <div class="results-section">
+            {% if transactions %}
+                <h2>Parsed Transactions</h2>
+                {% for transaction in transactions %}
+                    <div class="transaction">
+                        <h3>Transaction {{ loop.index }}</h3>
+                        <p>Payment Amount: {{ transaction.payment_amount }}</p>
+                        <p>Date: {{ transaction.date }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
