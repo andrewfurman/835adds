@@ -6,6 +6,9 @@ view_835_blueprint = Blueprint('view_835', __name__, template_folder='templates'
 
 @view_835_blueprint.route('/view835', methods=['GET', 'POST'])
 def view_835():
+    with open('view835s/static/sample_835.edi', 'r') as f:
+        sample_edi = f.read()
+    
     transactions = []
     if request.method == 'POST':
         if 'edi_file' not in request.files:
@@ -23,4 +26,4 @@ def view_835():
                 {'payment_amount': '750.00', 'date': '2024-04-16'}
             ]
     
-    return render_template('view_835s.html', transactions=transactions)
+    return render_template('view_835s.html', transactions=transactions, sample_edi=sample_edi)
